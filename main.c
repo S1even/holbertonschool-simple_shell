@@ -1,35 +1,42 @@
 #include "shell.h"
 
 /**
- * main - entry point for our simple shell program, checks for interactive
- *  or non-interactive
- *
- * @argc: count of command line arguments
- * @argv: command line arguments array
- *
- * Return: 0 if successful exit
-*/
+ * parse_command - Parses the command line into program and arguments
+ * @command: The command line input by the user
+ * Return: An array of arguments, suitable for execve
+ */
 
-int main(int argc, char **argv)
+char **parse_command(char *command)
 {
-	char *input_line;
-	char *newline = "\n";
-	(void)argc;
+	int bufsize = 1024, position = 0;
+	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token;
 
-	while (1)
+	if (!tokens)
 	{
-		prompt_and_read_input(&input_line);
-		if (!input_line)
-		{
-			if (isatty(STDIN_FILENO))
-			{
-				write(STDOUT_FILENO, newline, strlen(newline));
-			}
-			break;
-		}
-		process_command(input_line, argv, environ);
-		free(input_line);
+		perror("malloc");
+		return (NULL);
 	}
 
-	return (0);
+	token = strtok(command, " ");
+	while (token != NULL)
+	{
+		tokens[position] = token;
+		position++;
+
+		if (position >= bufsize)
+		{
+			bufsize += 1024;
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (!tokens)
+			{
+				perror("realloc");
+				return (NULL);
+			}
+		}
+
+		token = strtok(NULL, " ");
+	}
+	tokens[position] = NULL;
+	return (tokens);
 }

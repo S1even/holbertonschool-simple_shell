@@ -2,20 +2,16 @@
 
 /**
  * execute_command - execute the command
- * @command: command to be executed
+ * @argv: array of arguments (program + arguments)
  */
 
-void execute_command(char *command)
+void execute_command(char **argv)
 {
-	char *argv[2];
 	struct stat st;
 
-	argv[0] = command;
-	argv[1] = NULL;
-
-	if (stat(command, &st) == 0 && (st.st_mode & S_IXUSR))
+	if (stat(argv[0], &st) == 0 && (st.st_mode & S_IXUSR))
 	{
-		if (execve(command, argv, NULL) == -1)
+		if (execve(argv[0], argv, NULL) == -1)
 		{
 			perror("./shell");
 		}

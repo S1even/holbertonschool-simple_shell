@@ -11,6 +11,7 @@
 int main(void);
 void print_prompt(void);
 ssize_t read_command(char **buffer, size_t *size);
-void execute_command(char *command);
+void execute_command(char **argv);
+char **parse_command(char *command);
 
 #endif

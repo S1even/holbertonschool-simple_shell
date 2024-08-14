@@ -10,6 +10,7 @@ int main(void)
 	char *command = NULL;
 	size_t size = 0;
 	ssize_t read;
+	char **argv;
 
 	while (1)
 	{
@@ -25,14 +26,23 @@ int main(void)
 		if (strcmp(command, "") == 0)
 			continue;
 
+		argv = parse_command(command);
+		if (!argv)
+		{
+			free(command);
+			exit(1);
+		}
 		if (fork() == 0)
 		{
-			execute_command(command);
+			execute_command(argv);
+			free(argv);
 			_exit(1);
 		}
-
 		else
+		{
 			wait(NULL);
+			free(argv);
+		}
 	}
 
 	free(command);
