@@ -14,6 +14,7 @@ int main(int argc, char **argv)
 {
 	char *input_line;
 	char *newline = "\n";
+	(void)argc;
 
 	while (1)
 	{
