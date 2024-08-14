@@ -12,7 +12,7 @@ ssize_t read_command(char **buffer, size_t *size)
 	ssize_t read = getline(buffer, size, stdin);
 
 	if (read != -1)
-		(*buffer)[strcspn(*buffer, "\n")] = "\n";
+		(*buffer)[strcspn(*buffer, "\n")] = '\0';
 
 	return (read);
 }
