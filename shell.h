@@ -9,7 +9,7 @@
 
 int main(void);
 void print_prompt(void);
-void read_command(char *buffer);
+ssize_t read_command(char **buffer, size_t *size);
 void execute_command(char *command);
 
 #endif
