@@ -20,4 +20,5 @@ void execute_command(char **argv)
 	{
 		perror("./shell");
 	}
+	free(argv);
 }
