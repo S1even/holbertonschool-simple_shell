@@ -15,5 +15,7 @@ void execute_command(char **argv);
 char **parse_command(char *command);
 char *check_command_path(const char *dir, const char *command)
 char *find_command_in_path(char *command);
+void exit_shell(void);
+void env_variables(char **env);
 
 #endif
