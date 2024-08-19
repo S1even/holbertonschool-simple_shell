@@ -17,5 +17,9 @@ char *check_command_path(const char *dir, const char *command)
 char *find_command_in_path(char *command);
 void exit_shell(void);
 void env_variables(char **env);
+int check_path_executable(const char *path);
+char *create_command_path(char *command);
+void execute_in_child(char *cmd_path, char **parsed_command, char **env);
+void execute_command(char **parsed_command, char *program_name, char **env);
 
 #endif
