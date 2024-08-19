@@ -9,10 +9,41 @@
 
 ssize_t read_command(char **buffer, size_t *size)
 {
-	ssize_t read = getline(buffer, size, stdin);
+	ssize_t read_bytes, i;
+	size_t buffer_size = 1024;
 
-	if (read != -1)
-		(*buffer)[strcspn(*buffer, "\n")] = '\0';
+	if (*buffer == NULL)
+	{
+		*buffer = malloc(buffer_size);
+		if (*buffer == NULL)
+			return (-1);
+		*size = buffer_size;
+	}
 
-	return (read);
+	read_bytes = read(STDIN_FILENO, *buffer, buffer_size - 1);
+	if (read_bytes < 0)
+	{
+		free(*buffer);
+		return (-1);
+	}
+
+	(*buffer)[read_bytes] = '\0';
+	for (i = 0; i < read_bytes; i++)
+	{
+		if ((*buffer)[i] == '\n')
+		{
+			(*buffer)[i] = '\0';
+			break;
+		}
+	}
+
+	if (read_bytes == 0 || (*buffer)[0] == '\0')
+	{
+		free(*buffer);
+		*buffer = NULL;
+		*size = 0;
+		return (0);
+	}
+
+	return (read_bytes);
 }
