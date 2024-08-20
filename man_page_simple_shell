@@ -1,0 +1,48 @@
+ *TH SIMPLE_SHELL  "User Manuel"
+
+ *SH NAME
+ 	simple_shell
+
+ *SH SYNOPSIS
+ 	.B simple_shel
+
+ *SH DESCRIPTION
+ 	.B Simple_shell
+ 	- Is a basic implementation of command line interpreter shell in C. This program provides a simple interface for interacting with the operating system via a limited set of built-in functions.
+
+ *SH FUNCTIONS
+ 	.TP
+	.B void execute_command(int *status, pid_t pid, char **argum, char *commandLine,
+		int *exit_status, char *argv)
+	- executes a command in a child process.
+
+	.TP
+	.B char *check_command_path(const char *dir, const char *command)
+	- Checks if a command exists in a directory.
+
+	.TP
+	.B char *find_command_in_path(char *command)
+	- Searches for the command in PATH.
+
+	.TP
+	.B void free_argument(char **argum)
+	- frees memory allocated for an array on strings.
+
+	.TP
+	.B void print_prompt(void)
+	- function to print a custom prompt.
+
+	.TP
+	.B ssize_t read_command(char **buffer, size_t *size)
+	- reads a command from the user.
+
+	.TP
+	.B int main(int argc, char **argv)
+	- entry point of the shell program.
+
+	.TP
+	.B char  **token_line(char *command_line, const char *delim)
+	- tokenizes a command line string into an array of arguments.
+
+ *SH AUTHORS
+	Written by the Holberton School cohort 24 students. Bruqui, S1even and Drakan
