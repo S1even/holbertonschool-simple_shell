@@ -1,42 +1,46 @@
 #include "shell.h"
 
 /**
- * parse_command - Parses the command line into program and arguments
- * @command: The command line input by the user
- * Return: An array of arguments, suitable for execve
+ * token_line - tokenizes a command line string into an array of arguments
+ * @command_line: the command line string to be tokenized
+ * @delim: the delimiters used to split the command line string
+ * Return: an array of strings (token) representing the command and arguments,
+ * or NULL if no tokens are found
  */
 
-char **parse_command(char *command)
+char  **token_line(char *command_line, const char *delim)
 {
-	int bufsize = 1024, position = 0;
-	char **tokens = malloc(bufsize * sizeof(char *));
-	char *token;
+	char *token = NULL;
+	int num_tokens = 0;
+	char *command_line_copy = NULL;
+	char **argv = NULL;
+	int i = 0;
 
-	if (!tokens)
-	{
-		perror("malloc");
-		return (NULL);
-	}
+	command_line_copy = malloc(sizeof(char) * strlen(command_line) + 1);
+	strcpy(command_line_copy, command_line);
+	token = strtok(command_line, delim);
 
-	token = strtok(command, " ");
 	while (token != NULL)
 	{
-		tokens[position] = token;
-		position++;
-
-		if (position >= bufsize)
-		{
-			bufsize += 1024;
-			tokens = realloc(tokens, bufsize * sizeof(char *));
-			if (!tokens)
-			{
-				perror("realloc");
-				return (NULL);
-			}
-		}
-
-		token = strtok(NULL, " ");
+		num_tokens++;
+		token = strtok(NULL, delim);
 	}
-	tokens[position] = NULL;
-	return (tokens);
+	if (num_tokens == 0)
+	{
+		free(command_line_copy);
+		return (NULL);
+	}
+	num_tokens++;
+	argv = malloc(sizeof(char *) * num_tokens);
+	token = strtok(command_line_copy, delim);
+
+	for (i = 0; token != NULL; i++)
+	{
+		argv[i] = malloc(sizeof(char) * strlen(token) + 1);
+		strcpy(argv[i], token);
+		token = strtok(NULL, delim);
+	}
+	free(command_line_copy);
+	argv[i] = NULL;
+	return (argv);
 }
