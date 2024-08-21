@@ -5,7 +5,7 @@
 This project is a basic shell program developed in C. It offers basic features like command implementation and directory navigation.
 ## Screenshot
 
-![images (2)](https://github.com/user-attachments/assets/323aa81e-7eaf-4048-9754-2ee3569ba87a)
+![images (2)](https://github.com/user-attachments/assets/bcda86c2-b90f-43ab-ab3f-02fca3218dea)
 
 ## Flowchart
 ![images (3)](https://github.com/user-attachments/assets/64411039-bff2-49e3-89ac-cce3e7dca176)
